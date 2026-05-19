@@ -1,0 +1,21 @@
+.title{
+    text-align: center;
+}
+
+.inputSection {
+    text-align: center;
+}
+
+.tabelaUsers{
+    padding-top: 50px;
+    text-align: center;
+}
+
+#userDiv {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#button{
+height: 20px;
+}
