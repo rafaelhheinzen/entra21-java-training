@@ -82,14 +82,30 @@ function renderData(){
         // Soma 1 a variável userNumber para cada usuário
         if(user.nome === "Andrew Garfield"){
         div.innerHTML = `
-        <div class="userContainer">
-        <p>${user.numero} | Nome: <span  onclick="andrew()" style="color: red">${user.nome}</span> | Email: ${user.email}</p> <button id="button" onClick="deleteUser(${index})">X</button>
+        <div id="viewDiv-${index}" class="userContainer">
+        <p>${user.numero} | Nome: <span  onclick="andrew()" style="color: red">${user.nome}</span> | Email: ${user.email}</p><button onClick="showEditDiv(${index})">Editar</button><button id="button" onClick="deleteUser(${index})">X</button>
+        </div>
+
+        <div id="editDiv-${index}" class="userContainer">
+        <input type="text" value="${user.numero}">
+        <input type="text" id="editNome-${index}" value="${user.nome}">
+        <input type="text" id="editEmail-${index}" value="${user.email}">
+        <button onClick="saveEdit(${index})">Salvar</button>
+        <button onClick="cancelEdit(${index})">Cancelar</button>
         </div>
         `
         }else{
         div.innerHTML = `
-        <div class="userContainer">
-        <p>${user.numero} | Nome: ${user.nome} | Email: ${user.email}</p> <button id="button" onClick="deleteUser(${index})">X</button>
+        <div id="viewDiv-${index}" class="userContainer">
+        <p>${user.numero} | Nome: ${user.nome} | Email: ${user.email}</p><button onClick="showEditDiv(${index})">Editar</button><button id="button" onClick="deleteUser(${index})">X</button>
+        </div>
+
+        <div id="editDiv-${index}" class="userContainer" style="display:none;">
+        <input type="text" value="${user.numero}">
+        <input type="text" id="editNome-${index}" value="${user.nome}">
+        <input type="text" id="editEmail-${index}" value="${user.email}">
+        <button onClick="saveEdit(${index})">Salvar</button>
+        <button onClick="cancelEdit(${index})">Cancelar</button>
         </div>
         `
         }
@@ -111,3 +127,38 @@ body.style.backgroundImage = 'url("https://wallpapercave.com/wp/wp9974212.jpg")'
 //Renderiza tela de usuários ao abrir
 renderData();
 
+
+function showEditDiv(index){
+    const viewDiv = document.getElementById(`viewDiv-${index}`)
+    viewDiv.style.display = "none";
+
+    const editDiv = document.getElementById(`editDiv-${index}`)
+    editDiv.style.display = "block";
+}
+
+function saveEdit(index){
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Captura os valores dos inputs específicos desta linha
+    const novoNome = document.getElementById(`editNome-${index}`).value;
+    const novoEmail = document.getElementById(`editEmail-${index}`).value;
+
+    // Validação simples
+    if (!novoNome || !novoEmail) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+
+
+    users[index].nome = novoNome
+    users[index].email = novoEmail
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    renderData();
+}
+
+function cancelEdit(index){
+    document.getElementById(`viewDiv-${index}`).style.display = "block";
+    document.getElementById(`editDiv-${index}`).style.display = "none";
+}
