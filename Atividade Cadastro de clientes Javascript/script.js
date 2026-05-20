@@ -1,36 +1,57 @@
 const submitBtn = document.getElementById("submitBtn")
 const show = document.getElementById("show")
+const body = document.getElementById("body")
 
-function storeData(){
 
+function storeData(event){
 
-    // Pega o valor dos inputs
-    const nome = document.getElementById("nomeField").value
-    const email = document.getElementById("emailField").value
+const showP = document.getElementById("showP")
 
-    // Verifica se um dos campos está vazio
-    if(!nome || !email){
-        alert("Você tem que adicionar valores!")
-        return;
-    }
+// Pega usuários existentes
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
-    // Cria um objeto chamado user com propriedades: nome e email
-    const user = {
-        nome,
-        email
-    }
+// Número automático
+const numero = users.length + 1;
 
-    // Pega usuários existentes *utiliza-se JSON.parse pois o localStorage por padrão não consegue ler estrutura de objetos em JSON
-    let users = JSON.parse(localStorage.getItem("users")) || [];
+// Pega o valor dos inputs
+const nome = document.getElementById("nomeField").value
+const email = document.getElementById("emailField").value
 
-    // Adiciona novo usuário a array "users"
-    users.push(user)
+// Verifica se um dos campos está vazio
+if(!nome){
+    return;
+}else if(!email){
+    return;
+}else{
+    event.preventDefault()
 
-    // Salva array atualizado, transformando users em string
-    localStorage.setItem("users", JSON.stringify(users));
+    const p = document.createElement("p")
 
-    // Renderiza tela de usuários toda vez que um é adicionado
-    renderData();
+    p.innerHTML = "<p>Usuário criado com sucesso!</p>"
+
+    p.id = "feedbackMessage"
+
+    showP.appendChild(p)
+
+    setTimeout(() => p.style.display = "none", 1000)
+}
+
+// Cria objeto user
+const user = {
+    numero,
+    nome,
+    email
+}
+
+// Adiciona usuário
+users.push(user)
+
+// Salva
+localStorage.setItem("users", JSON.stringify(users));
+
+// Renderiza
+renderData();
+
 }
 
 function deleteUser(index){
@@ -45,10 +66,10 @@ function renderData(){
     if(!show) return;
 
     //Define a variável que representará o número do usuário
-    let userNumber = 0
 
     // Limpa a tela antes de renderizar usuários
     show.innerHTML = "";
+
 
     // Pega a array
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -59,11 +80,20 @@ function renderData(){
         div.id = "userDiv"
 
         // Soma 1 a variável userNumber para cada usuário
-        userNumber++
-
+        if(user.nome === "Andrew Garfield"){
         div.innerHTML = `
-        <p>${userNumber} | Nome: ${user.nome} | Email: ${user.email}</p> <button id="button" onClick="deleteUser(${index})">X</button>
+        <div class="userContainer">
+        <p>${user.numero} | Nome: <span  onclick="andrew()" style="color: red">${user.nome}</span> | Email: ${user.email}</p> <button id="button" onClick="deleteUser(${index})">X</button>
+        </div>
         `
+        }else{
+        div.innerHTML = `
+        <div class="userContainer">
+        <p>${user.numero} | Nome: ${user.nome} | Email: ${user.email}</p> <button id="button" onClick="deleteUser(${index})">X</button>
+        </div>
+        `
+        }
+
         show.appendChild(div)
     });
 }
@@ -73,6 +103,10 @@ if(submitBtn){
 submitBtn.addEventListener("click", storeData);
 }
 
+
+function andrew(){
+body.style.backgroundImage = 'url("https://wallpapercave.com/wp/wp9974212.jpg")';
+}
 
 //Renderiza tela de usuários ao abrir
 renderData();
