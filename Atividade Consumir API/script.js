@@ -3,6 +3,12 @@ const responseShow = document.getElementById("responseShow")
     //Function buscarCep()
     function buscarCep(){
         const cep = document.getElementById("cep")
+        const body = document.getElementById("body")
+
+
+        if(cep.value === "Chuck Norris"){
+            body.style.backgroundImage = "url('https://static1.cbrimages.com/wordpress/wp-content/uploads/2019/01/JJ-McQuade-Lone-Wolf-McQuade.jpg')"
+        }else{
         fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
         .then(dados => {
             return dados.json()})
@@ -23,4 +29,7 @@ const responseShow = document.getElementById("responseShow")
             `
         
         })
+        }
+
+
     }
