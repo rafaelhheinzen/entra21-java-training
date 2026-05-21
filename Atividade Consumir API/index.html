@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <label>Informe seu cep:</label>
+<body id="body">
+
+    <div class="inputDiv">
+    <h1>Insira seu CEP</h1>
     <input type="text"
     id="cep"
     placeholder="EX: 89107-000"
     onblur="buscarCep()"
     />
+    </div>
 
-
-    <div id="responseShow"></div>
+    <div id="responseShow" class="responseDiv"></div>
 
 </body>
 
