@@ -10,6 +10,9 @@ body{
 
 .title{
     text-align: center;
+    background-color: blue;
+    color: white;
+    padding:10px
 }
 
 .sumFunctions{
