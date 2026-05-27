@@ -1,0 +1,32 @@
+body{
+    background-color: orange;
+}
+
+.inputDiv{
+    border: 1px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 400px;
+    justify-self: center;
+    margin-top: 400px;
+    background-color: white;
+}
+
+.inputDiv input{
+    margin-bottom: 20px;
+    width: 200px;
+    height: 20px;
+    font-weight: bold;
+}
+
+.responseDiv{
+    justify-self: center;
+    border: 1px solid black;
+    margin-top: 20px;
+    width: 400px;
+    background-color: white;
+}
+
+.responseDiv p, .responseDiv h2{
+    margin-left: 20px;
+}
