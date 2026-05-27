@@ -36,6 +36,7 @@ const responseShow = document.getElementById("responseShow")
 
     
     async function buscarCep() {
+        try{
         const cep = document.getElementById("cep")
         const body = document.getElementById("body")
 
@@ -61,4 +62,8 @@ const responseShow = document.getElementById("responseShow")
         p.innerHTML = "*Eu estou sendo printado depois do resultado da busca do CEP por causa da Async Wait Function!*"
         p.style.fontWeight = "bold"
         responseShow.appendChild(p)
+        }
+        catch(error){
+            responseShow.innerHTML = "<h2>Erro ao encontrar CEP</h2>"
+        }
     }
