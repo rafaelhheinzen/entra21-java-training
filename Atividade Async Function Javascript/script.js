@@ -40,8 +40,25 @@ const responseShow = document.getElementById("responseShow")
         const body = document.getElementById("body")
 
         let data = await fetch(`http://viacep.com.br/ws/${cep.value}/json/`)
-        let response = await data.json()
-        console.log(response)
+        let resposta = await data.json()
+        console.log(resposta)
+        responseShow.innerHTML = `
+        <h2>CEP: ${resposta.cep}</h2>
+            <p>Logradouro: ${resposta.logradouro}</p>
+            <p>Complemento: ${resposta.complemento}</p>
+            <p>Unidade: ${resposta.unidade}</p>
+            <p>Bairro: ${resposta.bairro}</p>
+            <p>Cidade: ${resposta.localidade}</p>
+            <p>Estado: ${resposta.estado}</p>
+            <p>UF: ${resposta.uf}<p>
+            <p>Região: ${resposta.regiao}</p>
+            <p>IBGE: ${resposta.ibge}</p>
+            <p>DDD: ${resposta.ddd}<p>
+            
+            `
 
-        console.log("hey again")
+        const p = document.createElement("p")
+        p.innerHTML = "*Eu estou sendo printado depois do resultado da busca do CEP por causa da Async Wait Function!*"
+        p.style.fontWeight = "bold"
+        responseShow.appendChild(p)
     }
