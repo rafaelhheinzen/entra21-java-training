@@ -65,10 +65,35 @@ public class Mercado {
         String nome = input.nextLine();
         System.out.println("Digite o preço do produto:");
         double preco = input.nextDouble();
+
+        if(preco < 0){
+            input.nextLine();
+            System.out.println("O preço tem que ser um valor positivo. Digite novamente:");
+            preco = input.nextDouble();
+        }
+
+
         System.out.println("Digite a quantidade em estoque:");
         int estoque = input.nextInt();
 
-        Produto novoProduto = new Produto(nome, preco, estoque);
+
+                if(estoque < 0){
+            input.nextLine();
+            System.out.println("O preço tem que ser um valor positivo. Digite novamente:");
+            estoque = input.nextInt();
+        }
+
+        System.out.println("Digite a unidade de medida:");
+        String unidadeMedida = input.nextLine();
+
+        if(unidadeMedida.isEmpty() || unidadeMedida.length() != 2){
+            input.nextLine();
+            System.out.println("A unidade de medida deve ter somente 2 caractéres. Digite a unidade de medida novamente:");
+            
+            unidadeMedida = input.nextLine();
+        }
+
+        Produto novoProduto = new Produto(nome, preco, estoque, unidadeMedida);
         inventarioMercado[produtos] = novoProduto;
         produtos++;
 
@@ -94,6 +119,7 @@ public class Mercado {
                 System.out.println("Nome: " + produto.getNome());
                 System.out.println("Preço: " + produto.getPreco());
                 System.out.println("Estoque: " + produto.getEstoque());
+                System.out.println("Unidade de Medida: " + produto.getUnidadeMedida());
                 System.out.println("-----------------------------");
             }
         }
@@ -126,8 +152,12 @@ public class Mercado {
                 int estoque = input.nextInt();
                 produto.setEstoque(estoque);
 
+                System.out.println("Digite nova unidade de medida:");
+                String unidadeMedida = input.nextLine();
+                produto.setUnidadeMedida(unidadeMedida);
+
                 System.out.println("Produto atualizado com sucesso!");
-                System.out.println("Produto: "+produto.getNome()+ "; Preço: "+produto.getNome()+"; Estoque: "+produto.getEstoque());
+                System.out.println("Produto: "+produto.getNome()+ "; Preço: "+produto.getPreco()+"; Estoque: "+produto.getEstoque()+"; Unidade de Medida: "+produto.getUnidadeMedida());
             }
         }
         repetir();
